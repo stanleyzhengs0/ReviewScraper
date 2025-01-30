@@ -2,6 +2,18 @@ import puppeteer from "puppeteer";
 import fs from 'fs'
 
 
+const openBrowser = async () => {
+
+}
+
+const createReviewCollection =() => {
+
+}
+
+const createCafeCollection = () => {
+
+}
+
 const getCafeReview = async (url) => {
 
   try{
@@ -24,18 +36,19 @@ const getCafeReview = async (url) => {
     });
 
 
+    // Cafe Collection: 
     let cafeCollection = {}
 
+    const cafeName = await page.$eval('div.lMbq3e > div > h1.DUwDvf.lfPIob ', element => element.textContent.trim());
     const location = await page.$eval('button.CsEnBe[data-tooltip="Copy address"] > div.AeaXub > div.rogA2c', element => element.textContent.trim());
-    const phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim());
+    const phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Number");
+    const website = await page.$eval('a.CsEnBe[data-tooltip="Open website"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Website");
 
-    console.log(location , phoneNumber)
-
+    console.log(cafeName, "\n", location, "\n" ,phoneNumber,  "\n" , website)
+    
   
 
     
-
-
     // navigate to review section
     await page.click('button.hh2c6[data-tab-index="1"]')
 
@@ -148,8 +161,6 @@ function arrayToCsv(arr){
 //  "https://www.google.com/maps/place/Variety+Coffee+Roasters/@40.7401898,-74.0115869,13.5z/data=!4m6!3m5!1s0x89c259a533a7d2e3:0x37d08e1c0464b202!8m2!3d40.745199!4d-73.9945617!16s%2Fg%2F11c6cd32m5?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
 //  "https://www.google.com/maps/place/St+Kilda+Coffee/@40.74953,-74.0037178,13.75z/data=!4m6!3m5!1s0x89c2585398cb1ecd:0x1c444f8aa8477495!8m2!3d40.7590238!4d-73.9902597!16s%2Fg%2F11c2091lqr?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
 //  "https://www.google.com/maps/place/Hi-Collar/@40.7295831,-73.9904073,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2599c4b4c2267:0xcfea0fb3f579b4e8!8m2!3d40.7295831!4d-73.9878324!16s%2Fg%2F12lk79rmt?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
-
-
 // ]
 
 const cafes_to_search =[
@@ -157,19 +168,23 @@ const cafes_to_search =[
  ]
 // var cafe_reviews = []
 
-for(var i = 0; i < cafes_to_search.length; i++){
-    //array of objects, where each object holds review props
-    let review = (await getCafeReview(cafes_to_search[i]))
-    // cafe_reviews = [...cafe_reviews, ...review]
-
-}
 
 
 
+function main (){
+  // for(var i = 0; i < cafes_to_search.length; i++){
+  //   //array of objects, where each object holds review props
+  //   let review = (getCafeReview(cafes_to_search[i]))
+  //   // cafe_reviews = [...cafe_reviews, ...review]
+
+  // }
 
 // const csv = arrayToCsv(cafe_reviews)
 // fs.writeFileSync('output.csv', csv, 'utf8');
 
+  getCafeReview(cafes_to_search[0])
+
+}
 
 
-
+main()
