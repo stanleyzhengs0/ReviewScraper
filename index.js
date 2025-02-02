@@ -2,51 +2,48 @@ import puppeteer from "puppeteer";
 import fs from 'fs'
 
 
-const openBrowser = async () => {
+const openBrowser = async (url) => {
+  const browser = await puppeteer.launch({
+    headless: false,
+    defaultViewport: null,
+  });
 
+  // Open a new page
+  const page = await browser.newPage();
+
+  await page.goto(url, {
+    waitUntil: "domcontentloaded",
+
+  })
+
+  return page
 }
 
 const createReviewCollection =() => {
 
 }
 
-const createCafeCollection = () => {
+const createCafeCollection = async (page) => {
 
+     let cafeCollection = {}
+
+     cafeCollection.cafeName = await page.$eval('div.lMbq3e > div > h1.DUwDvf.lfPIob ', element => element.textContent.trim());
+     cafeCollection.location = await page.$eval('button.CsEnBe[data-tooltip="Copy address"] > div.AeaXub > div.rogA2c', element => element.textContent.trim());
+     cafeCollection.phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Number");
+     cafeCollection.website = await page.$eval('a.CsEnBe[data-tooltip="Open website"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Website");
+  
+    //  console.log(cafeName, "\n", location, "\n" ,phoneNumber,  "\n" , website)
+
+     return cafeCollection
 }
 
-const getCafeReview = async (url) => {
+const getCafeReview = async (url, page) => {
 
   try{
-    // Start a Puppeteer session with:
-    // - a visible browser (`headless: false` - easier to debug because you'll see the browser in action)
-    // - no default viewport (`defaultViewport: null` - website page will in full width and height)
-    const browser = await puppeteer.launch({
-      headless: false,
-      defaultViewport: null,
-    });
 
-    // Open a new page
-    const page = await browser.newPage();
-
-    // On this new page:
-    // - open google maps
-    // - wait until the dom content is loaded (HTML is ready)
-    await page.goto(url, {
-      waitUntil: "domcontentloaded",
-    });
-
-
-    // Cafe Collection: 
-    let cafeCollection = {}
-
-    const cafeName = await page.$eval('div.lMbq3e > div > h1.DUwDvf.lfPIob ', element => element.textContent.trim());
-    const location = await page.$eval('button.CsEnBe[data-tooltip="Copy address"] > div.AeaXub > div.rogA2c', element => element.textContent.trim());
-    const phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Number");
-    const website = await page.$eval('a.CsEnBe[data-tooltip="Open website"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Website");
-
-    console.log(cafeName, "\n", location, "\n" ,phoneNumber,  "\n" , website)
+ 
     
-  
+
 
     
     // navigate to review section
@@ -163,28 +160,56 @@ function arrayToCsv(arr){
 //  "https://www.google.com/maps/place/Hi-Collar/@40.7295831,-73.9904073,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2599c4b4c2267:0xcfea0fb3f579b4e8!8m2!3d40.7295831!4d-73.9878324!16s%2Fg%2F12lk79rmt?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
 // ]
 
+
+
+//Testing List
 const cafes_to_search =[
-  "https://www.google.com/maps/place/Hi-Collar/@40.7295831,-73.9904073,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2599c4b4c2267:0xcfea0fb3f579b4e8!8m2!3d40.7295831!4d-73.9878324!16s%2Fg%2F12lk79rmt?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D"
- ]
-// var cafe_reviews = []
+  "https://www.google.com/maps/place/The+Oasis+Cafe/@40.7292226,-73.9809392,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259005b015dc5:0x1d0f838119e1c6c1!8m2!3d40.7292226!4d-73.9809392!16s%2Fg%2F11y5t9dnxx?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D",
+  "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+]
 
 
+let cafe_reviews = []
+let cafe_details = []
 
 
-function main (){
-  // for(var i = 0; i < cafes_to_search.length; i++){
-  //   //array of objects, where each object holds review props
-  //   let review = (getCafeReview(cafes_to_search[i]))
-  //   // cafe_reviews = [...cafe_reviews, ...review]
+async function main (){
 
-  // }
+   
+  
+
+    for(var i = 0; i < cafes_to_search.length; i++){
+
+      const browser = await puppeteer.launch({
+        headless: false,
+        defaultViewport: null,
+      });
+  
+      // Open a new page
+      const page = await browser.newPage();
+  
+      await page.goto(cafes_to_search[i], {
+        waitUntil: "domcontentloaded",
+  
+      })
+
+      //array of objects, where each object holds review props
+      // let review = (getCafeReview(cafes_to_search[i]))
+      const cafeCollection = await createCafeCollection(page)
+   
+      cafe_details = [...cafe_details, ...cafeCollection]
+
+    }
 
 // const csv = arrayToCsv(cafe_reviews)
 // fs.writeFileSync('output.csv', csv, 'utf8');
-
-  getCafeReview(cafes_to_search[0])
+ 
+    
+    // getCafeReview(cafes_to_search[0], page)
 
 }
 
 
+// 
 main()
+console.log(cafe_details)
