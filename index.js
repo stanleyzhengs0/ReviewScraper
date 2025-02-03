@@ -42,10 +42,6 @@ const getCafeReview = async (url, page) => {
   try{
 
  
-    
-
-
-    
     // navigate to review section
     await page.click('button.hh2c6[data-tab-index="1"]')
 
@@ -175,9 +171,6 @@ let cafe_details = []
 
 async function main (){
 
-   
-  
-
     for(var i = 0; i < cafes_to_search.length; i++){
 
       const browser = await puppeteer.launch({
@@ -195,9 +188,11 @@ async function main (){
 
       //array of objects, where each object holds review props
       // let review = (getCafeReview(cafes_to_search[i]))
-      const cafeCollection = await createCafeCollection(page)
+      let cafeCollection =  createCafeCollection(page)
    
-      cafe_details = [...cafe_details, ...cafeCollection]
+      cafe_details = [...cafe_details, cafeCollection]
+
+      console.log(cafeCollection)
 
     }
 
@@ -210,6 +205,6 @@ async function main (){
 }
 
 
-// 
+
 main()
-console.log(cafe_details)
+
