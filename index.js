@@ -188,12 +188,12 @@ async function main (){
 
       //array of objects, where each object holds review props
       // let review = (getCafeReview(cafes_to_search[i]))
-      let cafeCollection =  createCafeCollection(page)
+      let cafeCollection =  await createCafeCollection(page)
    
-      cafe_details = [...cafe_details, cafeCollection]
+      cafe_details.push(cafeCollection)
 
-      console.log(cafeCollection)
-
+      // console.log(cafeCollection)
+      console.log(cafe_details)
     }
 
 // const csv = arrayToCsv(cafe_reviews)
@@ -207,4 +207,6 @@ async function main (){
 
 
 main()
+
+
 
