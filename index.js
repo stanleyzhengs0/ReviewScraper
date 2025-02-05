@@ -25,16 +25,22 @@ const createReviewCollection =() => {
 
 const createCafeCollection = async (page) => {
 
-     let cafeCollection = {}
+    try{
+      let cafeCollection = {}
 
-     cafeCollection.cafeName = await page.$eval('div.lMbq3e > div > h1.DUwDvf.lfPIob ', element => element.textContent.trim());
-     cafeCollection.location = await page.$eval('button.CsEnBe[data-tooltip="Copy address"] > div.AeaXub > div.rogA2c', element => element.textContent.trim());
-     cafeCollection.phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Number");
-     cafeCollection.website = await page.$eval('a.CsEnBe[data-tooltip="Open website"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Website");
-  
-    //  console.log(cafeName, "\n", location, "\n" ,phoneNumber,  "\n" , website)
+      cafeCollection.cafeName = await page.$eval('div.lMbq3e > div > h1.DUwDvf.lfPIob ', element => element.textContent.trim());
+      cafeCollection.location = await page.$eval('button.CsEnBe[data-tooltip="Copy address"] > div.AeaXub > div.rogA2c', element => element.textContent.trim()|| "No Address");
+      cafeCollection.phoneNumber = await page.$eval('button.CsEnBe[data-tooltip="Copy phone number"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Number");
+      cafeCollection.website = await page.$eval('a.CsEnBe[data-tooltip="Open website"] > div.AeaXub > div.rogA2c', element => element.textContent.trim() || "No Website");
+   
+     //  console.log(cafeName, "\n", location, "\n" ,phoneNumber,  "\n" , website)
+ 
+      return cafeCollection
 
-     return cafeCollection
+    }catch(error){
+      console.log("Error in create Cafe Collection: ", error)
+    }
+    
 }
 
 const getCafeReview = async (url, page) => {
@@ -187,7 +193,8 @@ async function main (){
       })
 
       //array of objects, where each object holds review props
-      // let review = (getCafeReview(cafes_to_search[i]))
+      let review = (getCafeReview(cafes_to_search[i], page))
+      cafe_reviews = [...cafe_reviews, review]
       let cafeCollection =  await createCafeCollection(page)
    
       cafe_details.push(cafeCollection)
@@ -196,12 +203,17 @@ async function main (){
       console.log(cafe_details)
     }
 
-// const csv = arrayToCsv(cafe_reviews)
-// fs.writeFileSync('output.csv', csv, 'utf8');
+
+
+  const reviewCollection = arrayToCsv(cafe_reviews)
+  fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
+
+  const cafeCollection = arrayToCsv(cafe_details)
+  fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
  
     
     // getCafeReview(cafes_to_search[0], page)
-
+  
 }
 
 
