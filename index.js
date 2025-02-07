@@ -167,7 +167,7 @@ function arrayToCsv(arr){
 //Testing List
 const cafes_to_search =[
   "https://www.google.com/maps/place/The+Oasis+Cafe/@40.7292226,-73.9809392,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259005b015dc5:0x1d0f838119e1c6c1!8m2!3d40.7292226!4d-73.9809392!16s%2Fg%2F11y5t9dnxx?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D",
-  "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+  // "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
 ]
 
 
@@ -193,26 +193,25 @@ async function main (){
       })
 
       //array of objects, where each object holds review props
-      let review = (getCafeReview(cafes_to_search[i], page))
-      cafe_reviews = [...cafe_reviews, review]
+      let review = await (getCafeReview(cafes_to_search[i], page))
+      cafe_reviews = [...cafe_reviews, ...review]
+      // console.log(cafe_details)
+
       let cafeCollection =  await createCafeCollection(page)
-   
       cafe_details.push(cafeCollection)
 
       // console.log(cafeCollection)
-      console.log(cafe_details)
+      
     }
 
+   // console.log(cafeCollection)
+  // console.log(cafe_details)
+  // const reviewCollection = arrayToCsv(cafe_reviews)
+  // fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
 
+  // const cafeCollection = arrayToCsv(cafe_details)
+  // fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
 
-  const reviewCollection = arrayToCsv(cafe_reviews)
-  fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
-
-  const cafeCollection = arrayToCsv(cafe_details)
-  fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
- 
-    
-    // getCafeReview(cafes_to_search[0], page)
   
 }
 
