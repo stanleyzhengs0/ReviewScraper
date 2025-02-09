@@ -204,13 +204,10 @@ async function main (){
       
     }
 
-   // console.log(cafeCollection)
-  // console.log(cafe_details)
-  // const reviewCollection = arrayToCsv(cafe_reviews)
-  // fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
 
-  // const cafeCollection = arrayToCsv(cafe_details)
-  // fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
+ 
+
+
 
   
 }
@@ -219,5 +216,12 @@ async function main (){
 
 main()
 
+const reviewCollection = arrayToCsv(cafe_reviews)
+fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
+
+  // const cafeCollection = arrayToCsv(cafe_details)
+  // fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
+console.log(cafe_reviews)
+console.log(cafe_details)
 
 
