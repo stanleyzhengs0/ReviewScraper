@@ -138,7 +138,7 @@ const getCafeReview = async (url, page) => {
 };
 
 //converts array of reviews to csv format
-function arrayToCsv(arr){
+async function arrayToCsv(arr){
   const header = Object.keys(arr[0])
   const row = arr.map(obj => header.map(header=> JSON.stringify(obj[header])).join(','))
   return [header.join(','), ...row].join('\r\n')
