@@ -24,7 +24,6 @@ const createReviewCollection =() => {
 }
 
 const createCafeCollection = async (page) => {
-
     try{
       let cafeCollection = {}
 
@@ -40,14 +39,12 @@ const createCafeCollection = async (page) => {
     }catch(error){
       console.log("Error in create Cafe Collection: ", error)
     }
-    
 }
 
 const getCafeReview = async (url, page) => {
 
   try{
 
- 
     // navigate to review section
     await page.click('button.hh2c6[data-tab-index="1"]')
 
@@ -134,11 +131,12 @@ const getCafeReview = async (url, page) => {
   }catch(error){
     console.log(error + " Error")
   }
-
 };
 
+
+
 //converts array of reviews to csv format
-async function arrayToCsv(arr){
+ function arrayToCsv(arr){
   const header = Object.keys(arr[0])
   const row = arr.map(obj => header.map(header=> JSON.stringify(obj[header])).join(','))
   return [header.join(','), ...row].join('\r\n')
@@ -166,49 +164,60 @@ async function arrayToCsv(arr){
 
 //Testing List
 const cafes_to_search =[
-  "https://www.google.com/maps/place/The+Oasis+Cafe/@40.7292226,-73.9809392,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259005b015dc5:0x1d0f838119e1c6c1!8m2!3d40.7292226!4d-73.9809392!16s%2Fg%2F11y5t9dnxx?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D",
+  "https://www.google.com/maps/place/The+Oasis+Cafe/@40.7292226,-73.9809392,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259005b015dc5:0x1d0f838119e1c6c1!8m2!3d40.7292226!4d-73.9809392!16s%2Fg%2F11y5t9dnxx?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
   // "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
 ]
 
 
-let cafe_reviews = []
-let cafe_details = []
+
 
 
 async function main (){
 
-    for(var i = 0; i < cafes_to_search.length; i++){
+  let cafe_reviews = []
+  let cafe_details = []
 
-      const browser = await puppeteer.launch({
-        headless: false,
-        defaultViewport: null,
-      });
+  for(var i = 0; i < cafes_to_search.length; i++){
+
+    const browser = await puppeteer.launch({
+      headless: false,
+      defaultViewport: null,
+    });
+
+    // Open a new page
+    const page = await browser.newPage();
+
+    await page.goto(cafes_to_search[i], {
+      waitUntil: "domcontentloaded",
+
+    })
+
   
-      // Open a new page
-      const page = await browser.newPage();
-  
-      await page.goto(cafes_to_search[i], {
-        waitUntil: "domcontentloaded",
-  
-      })
+    let cafeCollection =  await createCafeCollection(page)
+    cafe_details.push(cafeCollection)
 
-      //array of objects, where each object holds review props
-      let review = await (getCafeReview(cafes_to_search[i], page))
-      cafe_reviews = [...cafe_reviews, ...review]
-      // console.log(cafe_details)
+    // console.log(cafeCollection)
 
-      let cafeCollection =  await createCafeCollection(page)
-      cafe_details.push(cafeCollection)
+    //array of objects, where each object holds review props
+    let review = await (getCafeReview(cafes_to_search[i], page))
+    cafe_reviews = [...cafe_reviews, ...review]
+    
+    // console.log(review)
 
-      // console.log(cafeCollection)
-      
-    }
+    
+    
+  }
 
 
  
 
+  //WRITE TO CAFE COLLECTION
+  const cafeCollection = arrayToCsv(cafe_details)
+  fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
 
-
+  //WRITE TO REVIEW COLLECTION 
+  const reviewCollection = arrayToCsv(cafe_reviews)
+  fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
   
 }
 
@@ -216,12 +225,9 @@ async function main (){
 
 main()
 
-const reviewCollection = arrayToCsv(cafe_reviews)
-fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
 
-  // const cafeCollection = arrayToCsv(cafe_details)
-  // fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
-console.log(cafe_reviews)
-console.log(cafe_details)
+
+ 
+
 
 
