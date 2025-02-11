@@ -158,6 +158,22 @@ const getCafeReview = async (url, page) => {
 //  "https://www.google.com/maps/place/Variety+Coffee+Roasters/@40.7401898,-74.0115869,13.5z/data=!4m6!3m5!1s0x89c259a533a7d2e3:0x37d08e1c0464b202!8m2!3d40.745199!4d-73.9945617!16s%2Fg%2F11c6cd32m5?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
 //  "https://www.google.com/maps/place/St+Kilda+Coffee/@40.74953,-74.0037178,13.75z/data=!4m6!3m5!1s0x89c2585398cb1ecd:0x1c444f8aa8477495!8m2!3d40.7590238!4d-73.9902597!16s%2Fg%2F11c2091lqr?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
 //  "https://www.google.com/maps/place/Hi-Collar/@40.7295831,-73.9904073,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2599c4b4c2267:0xcfea0fb3f579b4e8!8m2!3d40.7295831!4d-73.9878324!16s%2Fg%2F12lk79rmt?entry=ttu&g_ep=EgoyMDI1MDEyMC4wIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/787+Coffee/@40.7165872,-74.0048064,16z/data=!3m2!4b1!5s0x89c25a2202036591:0x5616f29d1236fb5c!4m6!3m5!1s0x89c25b377fd2aa47:0x828f2d1d16df18ab!8m2!3d40.7165872!4d-74.0048064!16s%2Fg%2F11sl700j__?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/Old+Fashion+Caf%C3%A9/@40.7257358,-74.0043324,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2591c46252bc1:0x7358835c880fb904!8m2!3d40.7257358!4d-74.0017575!16s%2Fg%2F11t9nypqmg?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/The+Lazy+Llama+Coffee+Bar/@40.7234943,-73.9912272,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25983814d41d5:0x979ac7d9cd5f7870!8m2!3d40.7234943!4d-73.9886523!16s%2Fg%2F11cjpchz0g?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/Dreamers+Coffee+House/@40.712685,-73.9978133,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25ba999d4b253:0xb8a44ce014cfc130!8m2!3d40.712685!4d-73.9952384!16s%2Fg%2F11j0bpj1sq?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/La+Cabra/@40.72431,-74.062118,13z/data=!4m6!3m5!1s0x89c2590b5700aed3:0x143482a9c81bf22b!8m2!3d40.72431!4d-73.9962!16s%2Fg%2F11v0c2bcyg?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/Horus+Cafe+on+A/@40.7268766,-74.0018174,15z/data=!4m6!3m5!1s0x89c2597633148173:0xc81ed1096aa374b7!8m2!3d40.7279062!4d-73.9819867!16s%2Fg%2F1tf7t166?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/Cafe+Yaya/@40.7267031,-74.0013986,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259e8213d6613:0x61dc3dfb21ef51b9!8m2!3d40.7267031!4d-74.0013986!16s%2Fg%2F11y9mz6khy?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "https://www.google.com/maps/place/Brewlita/@40.7225831,-73.9962714,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259f3c38fe9f9:0x9396732a2eb28cb!8m2!3d40.7225831!4d-73.9962714!16s%2Fg%2F11rnh_b8pg?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
+//  "",
+//  "",
+//  "",
+//  "",
+//  "",
+//  "",
+//  "",
+ 
 // ]
 
 
