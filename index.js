@@ -1,7 +1,6 @@
 import puppeteer from "puppeteer";
 import fs from 'fs'
 
-
 const openBrowser = async (url) => {
   const browser = await puppeteer.launch({
     headless: false,
@@ -85,8 +84,6 @@ const getCafeReview = async (url, page) => {
         }, 200)
       })
     }, scrollContainer)
-    
-
 
     //click all see more button
     await page.evaluate(()=>{
@@ -133,16 +130,12 @@ const getCafeReview = async (url, page) => {
   }
 };
 
-
-
 //converts array of reviews to csv format
  function arrayToCsv(arr){
   const header = Object.keys(arr[0])
   const row = arr.map(obj => header.map(header=> JSON.stringify(obj[header])).join(','))
   return [header.join(','), ...row].join('\r\n')
 }
-
-
 
 // const cafes_to_search =[
 // "https://www.google.com/maps/place/Three+Jewels+Cafe/@40.7263559,-73.9960229,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25984d2115555:0xb698e5fbd183085b!8m2!3d40.726356!4d-73.991152!16s%2Fg%2F11f4lffrbk?entry=ttu",
@@ -175,16 +168,11 @@ const cafes_to_search = [
  
 ]
 
-
-
 //Testing List
 // const cafes_to_search =[
 //   "https://www.google.com/maps/place/The+Oasis+Cafe/@40.7292226,-73.9809392,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259005b015dc5:0x1d0f838119e1c6c1!8m2!3d40.7292226!4d-73.9809392!16s%2Fg%2F11y5t9dnxx?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
 //   // "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
 // ]
-
-
-
 
 
 async function main (){
@@ -234,7 +222,6 @@ async function main (){
 
   
 }
-
 
 
 main()
