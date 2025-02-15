@@ -18,9 +18,6 @@ const openBrowser = async (url) => {
   return page
 }
 
-const createReviewCollection =() => {
-
-}
 
 const createCafeCollection = async (page) => {
     try{
@@ -165,7 +162,6 @@ const cafes_to_search = [
 //  "",
 //  "",
 //  "",
- 
 ]
 
 //Testing List
@@ -200,17 +196,13 @@ async function main (){
     cafe_details.push(cafeCollection)
 
     // console.log(cafeCollection)
-
     //array of objects, where each object holds review props
     let review = await (getCafeReview(cafes_to_search[i], page))
     cafe_reviews = [...cafe_reviews, ...review]
     
     // console.log(review)
-
-    
     page.close()
   }
-
 
   //WRITE TO CAFE COLLECTION
   const cafeCollection = arrayToCsv(cafe_details)
@@ -220,7 +212,6 @@ async function main (){
   const reviewCollection = arrayToCsv(cafe_reviews)
   fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
 
-  
 }
 
 
