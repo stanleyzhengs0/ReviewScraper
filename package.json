@@ -12,6 +12,7 @@
   "type": "module",
   "types": "module",
   "dependencies": {
+    "express": "^4.21.2",
     "puppeteer": "^22.14.0"
   }
 }
