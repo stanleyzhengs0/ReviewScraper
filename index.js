@@ -18,7 +18,6 @@ const openBrowser = async (url) => {
   return page
 }
 
-
 const createCafeCollection = async (page) => {
     try{
 
@@ -159,9 +158,16 @@ const cafes_to_search = [
  "https://www.google.com/maps/place/Cafe+Yaya/@40.7267031,-74.0013986,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259e8213d6613:0x61dc3dfb21ef51b9!8m2!3d40.7267031!4d-74.0013986!16s%2Fg%2F11y9mz6khy?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
  "https://www.google.com/maps/place/Brewlita/@40.7225831,-73.9962714,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259f3c38fe9f9:0x9396732a2eb28cb!8m2!3d40.7225831!4d-73.9962714!16s%2Fg%2F11rnh_b8pg?entry=ttu&g_ep=EgoyMDI1MDIwNS4xIKXMDSoASAFQAw%3D%3D",
  "https://www.google.com/maps/place/Charlotte+Cafe/@40.744368,-73.9790758,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2595b6f576385:0xbaddfaa9b151bac8!8m2!3d40.744364!4d-73.9765009!16s%2Fg%2F11sh015_5x?entry=ttu&g_ep=EgoyMDI1MDIwOS4wIKXMDSoASAFQAw%3D%3D",
-//  "",
-//  "",
+ "https://www.google.com/maps/place/The+Uncommons/@40.7294104,-73.9987065,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25991bc886989:0xee1e9d3564f4da55!8m2!3d40.7294104!4d-73.9987065!16s%2Fg%2F1pp2vdjq6?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/Caf%C3%A9+Lyria/@40.725846,-73.9980009,17z/data=!3m2!4b1!5s0x89c2598f08f5c815:0x3001fcd6d96c410a!4m6!3m5!1s0x89c259f56e035771:0x1a404262f72adc1f!8m2!3d40.725846!4d-73.995426!16s%2Fg%2F11ptqg3xgh?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/Joey+No+Nuts+Caf%C3%A9/@40.7452937,-74.0350345,17z/data=!3m1!4b1!4m6!3m5!1s0x89c2576364aabcab:0x4f27c44fb38b6998!8m2!3d40.7452937!4d-74.0324596!16s%2Fg%2F11fnr5dz97?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/11th+Street+Cafe/@40.7357544,-74.0100884,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259eb3b157253:0x784e9012ae96a8c7!8m2!3d40.7357544!4d-74.0075135!16s%2Fg%2F1tf29ltw?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/Urbana+Cafe+and+Gallery/@40.7450198,-74.0084272,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25979e67279eb:0x70460ae77a1ed1f6!8m2!3d40.7450198!4d-74.0058523!16s%2Fg%2F11tfjwmzsn?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/A.M.+Craft/@37.3364169,-121.8795903,17z/data=!3m1!4b1!4m6!3m5!1s0x808fcdecc2788aa5:0x922f8044a8f552f1!8m2!3d37.3364169!4d-121.8770154!16s%2Fg%2F11q9n98jd4?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+ "https://www.google.com/maps/place/Cafe+Panino+Mucho+Giusto/@40.735259,-74.0088701,17z/data=!3m1!4b1!4m6!3m5!1s0x89c25994cc0f334f:0x5eefbd57cdf82054!8m2!3d40.735259!4d-74.0062952!16s%2Fg%2F1v3h_x7r?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
+"https://www.google.com/maps/place/La+Colombe+Coffee+Workshop/@40.7267631,-74.0070001,16z/data=!3m2!4b1!5s0x89c25991efd97a07:0xb2f53692a67a4cfa!4m6!3m5!1s0x89c259f2d7811435:0x70e6c5f3ddc06f61!8m2!3d40.7267631!4d-74.0070001!16s%2Fg%2F11b6d07gqd?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoJLDEwMjExNDU1SAFQAw%3D%3D",
 ]
+
 
 //Testing List
 // const cafes_to_search =[
