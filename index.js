@@ -1,5 +1,6 @@
 import puppeteer from "puppeteer";
 import fs from 'fs'
+import readline from 'readline'
 
 const openBrowser = async (url) => {
   const browser = await puppeteer.launch({
@@ -175,52 +176,109 @@ const cafes_to_search = [
 //   // "https://www.google.com/maps/place/La+Fleur+Caf%C3%A9/@40.7276867,-73.9856926,17z/data=!3m1!4b1!4m6!3m5!1s0x89c259863128bfdd:0x9af14ba56227dadd!8m2!3d40.7276867!4d-73.9831177!16s%2Fg%2F11qbd_79mm?entry=ttu&g_ep=EgoyMDI1MDEyOC4wIKXMDSoASAFQAw%3D%3D"
 // ]
 
+
+async function scrapeUrl(url, cafe_reviews, cafe_details){
+
+  const browser = await puppeteer.launch({
+    headless: false,
+  })
+
+  const page = await browser.newPage()
+
+  try{
+    await page.goto(url, {
+      waitUntil: "domcontentloaded",
+    })
+
+
+
+
+  }catch(error){
+    console.log(error, " Error in scraping data")
+  }
+
+  
+
+
+
+
+  await browser.close()
+}
+
  
-async function main (){
+async function processUrls(filePath) {
 
   let cafe_reviews = []
   let cafe_details = []
 
-  for(var i = 0; i < cafes_to_search.length; i++){
+  const fileStream = fs.createReadStream(filePath);
+  const rl = readline.createInterface({
+    input: fileStream,
+    crlfDelay: Infinity,
+  });
 
-    const browser = await puppeteer.launch({
-      headless: false,
-      defaultViewport: null,
-    });
+  for await (const line of rl) {
 
-    // Open a new page
-    const page = await browser.newPage();
-
-    await page.goto(cafes_to_search[i], {
-      waitUntil: "domcontentloaded",
-
-    })
-
-  
-    let cafeCollection =  await createCafeCollection(page)
-    cafe_details.push(cafeCollection)
-
-    // console.log(cafeCollection)
-    //array of objects, where each object holds review props
-    let review = await (getCafeReview(cafes_to_search[i], page))
-    cafe_reviews = [...cafe_reviews, ...review]
-    
-    // console.log(review)
-    
+    console.log(line, '\n')
+    // if (line.trim()) {
+    //   await scrapeUrl(line.trim()); // Process each URL
+    // }
   }
 
-  //WRITE TO CAFE COLLECTION
-  const cafeCollection = arrayToCsv(cafe_details)
-  fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
-
-  //WRITE TO REVIEW COLLECTION 
-  const reviewCollection = arrayToCsv(cafe_reviews)
-  fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
-
+  console.log('Finished processing all URLs.');
 }
 
+// Run the scraper on your text file
+processUrls('urls.txt');
 
-main()
+
+
+
+// async function main (){
+
+//   // let cafe_reviews = []
+//   // let cafe_details = []
+
+//   for(var i = 0; i < cafes_to_search.length; i++){
+
+//     const browser = await puppeteer.launch({
+//       headless: false,
+//       defaultViewport: null,
+//     });
+
+//     // Open a new page
+//     const page = await browser.newPage();
+
+//     await page.goto(cafes_to_search[i], {
+//       waitUntil: "domcontentloaded",
+
+//     })
+
+  
+//     let cafeCollection =  await createCafeCollection(page)
+//     cafe_details.push(cafeCollection)
+
+//     // console.log(cafeCollection)
+//     //array of objects, where each object holds review props
+//     let review = await (getCafeReview(cafes_to_search[i], page))
+//     cafe_reviews = [...cafe_reviews, ...review]
+    
+//     // console.log(review)
+    
+//   }
+
+//   // //WRITE TO CAFE COLLECTION
+//   // const cafeCollection = arrayToCsv(cafe_details)
+//   // fs.writeFileSync('cafeCollection.csv', cafeCollection, 'utf8');
+
+//   // //WRITE TO REVIEW COLLECTION 
+//   // const reviewCollection = arrayToCsv(cafe_reviews)
+//   // fs.writeFileSync('reviewCollection.csv', reviewCollection, 'utf8');
+
+// }
+
+
+// main()
 
 
 
