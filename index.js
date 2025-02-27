@@ -201,7 +201,7 @@ async function processUrls(filePath) {
 }
 
 // Run the scraper on your text file
-processUrls('testUrls.txt');
+processUrls('urls.txt');
 
 
  
