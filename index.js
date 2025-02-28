@@ -2,8 +2,6 @@ import puppeteer from "puppeteer";
 import fs from 'fs'
 import readline from 'readline'
 
-
-
 const createCafeCollection = async (page) => {
     try{
 
